@@ -1,5 +1,6 @@
 package com.empoluboyarov.states;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.empoluboyarov.FlappyBird;
@@ -20,12 +21,14 @@ public class MenuState extends State{
 
     @Override
     protected void handleInput() {
+        if(Gdx.input.justTouched())
+            gsm.set(new PlayState(gsm));
 
     }
 
     @Override
     public void update(float dt) {
-
+        handleInput();
     }
 
     @Override
