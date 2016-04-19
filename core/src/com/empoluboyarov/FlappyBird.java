@@ -2,6 +2,8 @@ package com.empoluboyarov;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -17,12 +19,19 @@ public class FlappyBird extends ApplicationAdapter {
 	private GameStateManager gsm;
 	private SpriteBatch batch;
 
-	Texture img;
+	private Texture img;
+
+	private Music music;
+
 	
 	@Override
 	public void create () {
 		gsm = new GameStateManager();
 		batch = new SpriteBatch();
+		music = Gdx.audio.newMusic(Gdx.files.internal("music.mp3"));
+		music.setLooping(true);
+		music.setVolume(0.2f);
+		music.play();
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		gsm.push(new MenuState(gsm));
 	}
@@ -32,5 +41,11 @@ public class FlappyBird extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		gsm.update(Gdx.graphics.getDeltaTime());
 		gsm.render(batch);
+	}
+
+	@Override
+	public void dispose() {
+		super.dispose();
+		music.dispose();
 	}
 }
