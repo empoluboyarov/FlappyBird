@@ -9,10 +9,11 @@ import com.badlogic.gdx.math.Vector3;
  */
 public class Bird {
 
-    public static final int GRAVITY = -15;
+    private static final int MOVEMENT = 100;
+    private static final int GRAVITY = -15;
 
-    private Vector3 position;
-    private Vector3 velocity;
+    private Vector3 position; // координаты
+    private Vector3 velocity; // вектор скорости
     private Texture bird;
 
     public Bird(int x, int y){
@@ -31,10 +32,20 @@ public class Bird {
 
     public void update(float dt){
         //расчитываем силу притяжения и скорость падения птички , что бы скорость падения увеличичвалсь с течением времени
-        velocity.add(0, GRAVITY, 0);
+        if (position.y >0)
+            velocity.add(0, GRAVITY, 0);
+
         velocity.scl(dt);
-        position.add(0, velocity.y, 0);
+        position.add(MOVEMENT * dt, velocity.y, 0);
+
+        if (position.y < 0)// что бы птичка не улетала за экран
+            position.y = 0;
+
         velocity.scl(1/dt);
+    }
+
+    public void jump(){
+        velocity.y = 250;
     }
 
 }
