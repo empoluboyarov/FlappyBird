@@ -21,6 +21,7 @@ public class MenuState extends State{
 
     @Override
     protected void handleInput() {
+        // запускаем игровой экран при клики или нажатии
         if(Gdx.input.justTouched())
             gsm.set(new PlayState(gsm));
 
